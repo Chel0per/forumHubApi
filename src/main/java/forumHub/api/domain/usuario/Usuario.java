@@ -1,14 +1,15 @@
-package forumHub.api.usuario;
+package forumHub.api.domain.usuario;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@Table(name = "autores")
+@Table(name = "usuarios")
 @Entity
 public class Usuario implements UserDetails {
 
@@ -31,6 +32,13 @@ public class Usuario implements UserDetails {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
+    }
+
+    public Usuario(DadosCadastroUsuario dados) {
+        email = dados.email();
+        nome = dados.nome();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        senha = encoder.encode(dados.senha());
     }
 
     public String getEmail() {
@@ -56,7 +64,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return nome;
+        return email;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package forumHub.api.perfil;
+package forumHub.api.domain.perfil;
 
 import jakarta.persistence.*;
 
@@ -17,11 +17,15 @@ public class Perfil {
 
     public Perfil() {}
 
-
     public Perfil(Long id, String nome, Long userId) {
         this.id = id;
         this.nome = nome;
         this.usuarioId = userId;
+    }
+
+    public Perfil(String nome, Long usuarioId) {
+        this.nome = nome;
+        this.usuarioId = usuarioId;
     }
 
     public Long getId() {

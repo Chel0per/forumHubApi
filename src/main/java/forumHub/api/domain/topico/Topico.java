@@ -1,35 +1,37 @@
-package forumHub.api.resposta;
+package forumHub.api.domain.topico;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Table(name = "respostas")
 @Entity
-public class Resposta {
+@Table(name = "topicos")
+public class Topico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String solucao;
+    private String titulo;
     private String mensagem;
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
+    private boolean status;
     @Column(name = "autor_id")
     private Long autorId;
-    @Column(name = "topico_id")
-    private Long topicoId;
+    @Column(name = "curso_id")
+    private Long cursoId;
 
-    public Resposta() {}
+    public Topico(){}
 
-    public Resposta(Long autorId, LocalDateTime dataCriacao, Long id, String mensagem, String solucao, Long topicoId) {
+    public Topico(Long autorId, Long cursoId, LocalDateTime dataCriacao, Long id, String mensagem, boolean status, String titulo) {
         this.autorId = autorId;
+        this.cursoId = cursoId;
         this.dataCriacao = dataCriacao;
         this.id = id;
         this.mensagem = mensagem;
-        this.solucao = solucao;
-        this.topicoId = topicoId;
+        this.status = status;
+        this.titulo = titulo;
     }
 
     public Long getAutorId() {
@@ -38,6 +40,14 @@ public class Resposta {
 
     public void setAutorId(Long autorId) {
         this.autorId = autorId;
+    }
+
+    public Long getCursoId() {
+        return cursoId;
+    }
+
+    public void setCursoId(Long cursoId) {
+        this.cursoId = cursoId;
     }
 
     public LocalDateTime getDataCriacao() {
@@ -64,28 +74,28 @@ public class Resposta {
         this.mensagem = mensagem;
     }
 
-    public String getSolucao() {
-        return solucao;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setSolucao(String solucao) {
-        this.solucao = solucao;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
-    public Long getTopicoId() {
-        return topicoId;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTopicoId(Long topicoId) {
-        this.topicoId = topicoId;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Resposta resposta = (Resposta) o;
-        return Objects.equals(id, resposta.id);
+        Topico topico = (Topico) o;
+        return Objects.equals(id, topico.id);
     }
 
     @Override
