@@ -2,6 +2,8 @@ package forumHub.api.domain.usuario;
 
 import forumHub.api.domain.perfil.PerfilRepository;
 import forumHub.api.domain.perfil.Perfil;
+import forumHub.api.infra.security.DadosTokenJWT;
+import forumHub.api.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ public class UsuarioController {
     private AuthenticationManager manager;
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
@@ -31,7 +36,9 @@ public class UsuarioController {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(dados.email(),dados.senha());
         Authentication authentication = manager.authenticate(token);
 
-        return ResponseEntity.ok().build();
+        String tokenString = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenString));
     }
 
     @PostMapping

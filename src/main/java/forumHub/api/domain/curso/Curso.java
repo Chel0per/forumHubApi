@@ -12,21 +12,27 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String categoria;
+    @Enumerated(EnumType.STRING)
+    private CategoriasCurso categoria;
 
     public Curso() {}
 
-    public Curso(String categoria, Long id, String nome) {
+    public Curso(CategoriasCurso categoria, Long id, String nome) {
         this.categoria = categoria;
         this.id = id;
         this.nome = nome;
     }
 
-    public String getCategoria() {
+    public Curso(DadosCadastroCurso dados) {
+        nome = dados.nome();
+        categoria = dados.categoria();
+    }
+
+    public CategoriasCurso getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(CategoriasCurso categoria) {
         this.categoria = categoria;
     }
 

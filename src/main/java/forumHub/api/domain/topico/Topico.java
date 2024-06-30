@@ -34,6 +34,15 @@ public class Topico {
         this.titulo = titulo;
     }
 
+    public Topico(DadosCadastroTopico dados) {
+        titulo = dados.titulo();
+        mensagem = dados.mensagem();
+        dataCriacao = LocalDateTime.now();
+        status = true;
+        autorId = dados.autorId();
+        cursoId = dados.cursoId();
+    }
+
     public Long getAutorId() {
         return autorId;
     }
