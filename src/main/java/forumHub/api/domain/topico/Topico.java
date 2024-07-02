@@ -99,6 +99,15 @@ public class Topico {
         this.titulo = titulo;
     }
 
+    public void atualizarInformacoes(DadosAtualizacaoTopico dados) {
+        if (dados.titulo() != null) {
+            titulo = dados.titulo();
+        }
+        if (dados.mensagem() != null) {
+            mensagem = dados.mensagem();
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
