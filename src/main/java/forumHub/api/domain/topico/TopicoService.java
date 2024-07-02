@@ -4,7 +4,6 @@ import forumHub.api.domain.ValidacaoException;
 import forumHub.api.domain.curso.CursoRepository;
 import forumHub.api.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

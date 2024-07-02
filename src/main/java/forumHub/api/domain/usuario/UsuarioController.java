@@ -1,7 +1,5 @@
 package forumHub.api.domain.usuario;
 
-import forumHub.api.domain.perfil.PerfilRepository;
-import forumHub.api.domain.perfil.Perfil;
 import forumHub.api.infra.security.DadosTokenJWT;
 import forumHub.api.infra.security.TokenService;
 import jakarta.validation.Valid;
@@ -26,10 +24,7 @@ public class UsuarioController {
     private TokenService tokenService;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private PerfilRepository perfilRepository;
+    private UsuarioService usuarioService;
 
     @PostMapping("/login")
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
@@ -43,12 +38,7 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity cadastrarUsuario(@RequestBody @Valid DadosCadastroUsuario dados) {
-        Usuario usuario = new Usuario(dados);
-        usuario = usuarioRepository.save(usuario);
-
-        Perfil perfilInicial = new Perfil(dados.nome(),usuario.getId());
-        perfilRepository.save(perfilInicial);
-
+        Usuario usuario = usuarioService.cadastrarUsuario(dados);
         return ResponseEntity.ok()
                 .body(new DadosDetalhamentoUsuario(usuario.getId(), usuario.getNome(), usuario.getEmail()));
     }
