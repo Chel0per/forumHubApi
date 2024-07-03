@@ -32,6 +32,14 @@ public class Resposta {
         this.topicoId = topicoId;
     }
 
+    public Resposta(DadosCadastroResposta dados) {
+        autorId = dados.autorId();
+        topicoId = dados.topicoId();
+        mensagem = dados.mensagem();
+        solucao = dados.solucao();
+        dataCriacao = LocalDateTime.now();
+    }
+
     public Long getAutorId() {
         return autorId;
     }

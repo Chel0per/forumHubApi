@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +64,6 @@ public class TopicoService {
         }
     }
 
-    @Transactional
     public DadosTopicoCompleto atualizarTopico(DadosAtualizacaoTopico dados, Long id) {
         Optional<Topico> topicoOptional = topicoRepository.findById(id);
         if(topicoOptional.isPresent()){
@@ -73,6 +71,21 @@ public class TopicoService {
             Topico topico = topicoOptional.get();
             topico.atualizarInformacoes(dados);
             topicoRepository.save(topico);
+            return new DadosTopicoCompleto(topico,respostas);
+        }
+        else {
+            throw new ValidacaoException("Não existe um tópico cadastrado com o Id fornecido!");
+        }
+    }
+
+    public DadosTopicoCompleto deletarTopico(Long id) {
+        Optional<Topico> topicoOptional = topicoRepository.findById(id);
+        if(topicoOptional.isPresent()){
+            List<Resposta> respostas = respostaRepository.findAllByTopicoId(id);
+            List<Long> ids = respostas.stream().map(r -> r.getId()).toList();
+            respostaRepository.deleteAllById(ids);
+            Topico topico = topicoOptional.get();
+            topicoRepository.deleteById(id);
             return new DadosTopicoCompleto(topico,respostas);
         }
         else {

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class TopicoController {
     @Autowired
     private TopicoService topicoService;
 
+    @Transactional
     @PostMapping
     public ResponseEntity cadastrarTopico(@RequestBody @Valid DadosCadastroTopico dados){
         Topico topicoCadastrado = topicoService.cadastrar(dados);
@@ -33,9 +35,17 @@ public class TopicoController {
         return ResponseEntity.ok(topico);
     }
 
+    @Transactional
     @PutMapping("/{id}")
     public ResponseEntity atualizarTopico(@RequestBody DadosAtualizacaoTopico dados,@PathVariable Long id){
         DadosTopicoCompleto topico = topicoService.atualizarTopico(dados,id);
+        return ResponseEntity.ok(topico);
+    }
+
+    @Transactional
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletarTopico(@PathVariable Long id){
+        DadosTopicoCompleto topico = topicoService.deletarTopico(id);
         return ResponseEntity.ok(topico);
     }
 

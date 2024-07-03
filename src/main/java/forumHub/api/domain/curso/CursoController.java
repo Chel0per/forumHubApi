@@ -1,9 +1,9 @@
 package forumHub.api.domain.curso;
 
-import forumHub.api.domain.topico.DadosDetalhamentoTopico;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +16,7 @@ public class CursoController {
     @Autowired
     private CursoService cursoService;
 
+    @Transactional
     @PostMapping
     public ResponseEntity cadastrarCurso(@RequestBody @Valid DadosCadastroCurso dados){
         Curso cursoCadastrado = cursoService.cadastrarCurso(dados);
