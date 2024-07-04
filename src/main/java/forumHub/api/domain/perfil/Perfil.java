@@ -17,10 +17,15 @@ public class Perfil {
 
     public Perfil() {}
 
-    public Perfil(Long id, String nome, Long userId) {
+    public Perfil(Long id, String nome, Long usuarioId) {
         this.id = id;
         this.nome = nome;
-        this.usuarioId = userId;
+        this.usuarioId = usuarioId;
+    }
+
+    public Perfil(DadosCadastroPerfil dados) {
+        nome = dados.nome();
+        usuarioId = dados.usuarioId();
     }
 
     public Perfil(String nome, Long usuarioId) {
@@ -40,7 +45,7 @@ public class Perfil {
         this.nome = nome;
     }
 
-    public Long getUserId() {
+    public Long getUsuarioId() {
         return usuarioId;
     }
 
