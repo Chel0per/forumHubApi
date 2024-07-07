@@ -169,7 +169,7 @@ se o cadastro for feito sem problemas a requisição retornará os dados da resp
 }
 ```
 
-as respostas que aparecem no método GET "topicos/{id} possuem este formato.
+as respostas que aparecem no método GET "topicos/{id}" possuem este formato.
 
 A requisição DELETE exige apenas uma variável de caminho id "/respostas/{id}". Ela exclui o tópico com o id enviado e retorna sua informações no mesmo formato da requisição POST.
 
